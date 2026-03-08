@@ -1,0 +1,259 @@
+#tun:
+#  enable: true
+#  stack: system # 或 gvisor
+#  dns-hijack:
+#    - 198.18.0.2:53
+#  auto-route: true
+#  auto-detect-interface: true
+port: 7890
+socks-port: 7891
+redir-port: 7892
+
+tun:
+  enable: false
+  stack: system # 或 gvisor，大多数情况 system 即可
+  device: tun0
+  dns-hijack:
+    - 0.0.0.0:53
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+
+allow-lan: false
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+secret: ""  # 控制面板密码，留空为无密码
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  default-nameserver:
+    - 233.5.5.5
+    - 114.114.114.114
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - https://doh.pub/dns-query
+    - tls://dns.rubyfish.cn:853
+    - 8.8.8.8
+    - 1.1.1.1
+  fallback:
+    - tls://8.8.8.8:853
+    - tls://1.1.1.1:853
+  fallback-filter:
+    geoip: true
+    ipcidr:
+      - 240.0.0.0/4
+
+proxies:
+  # 日本节点
+  - name: "🇯🇵 日本 x 1.0"
+    type: trojan
+    server: 02.giant.jp.matchacocoa.com
+    port: 443
+    password: "323ab044-c5f7-468d-8b17-ff53dbe808b4"
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 02.giant.jp.matchacocoa.com
+
+  # 新加坡节点
+  - name: "🇸🇬 新加坡 x 1.0"
+    type: trojan
+    server: 02.giant.sg.matchacocoa.com
+    port: 443
+    password: "323ab044-c5f7-468d-8b17-ff53dbe808b4"
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 02.giant.sg.matchacocoa.com
+
+  # 美国节点
+  - name: "🇺🇸 美国 x 1.0"
+    type: trojan
+    server: 02.giant.us.matchacocoa.com
+    port: 443
+    password: "323ab044-c5f7-468d-8b17-ff53dbe808b4"
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 02.giant.us.matchacocoa.com
+
+  # 香港节点
+  - name: "🇭🇰 香港 x 1.0"
+    type: trojan
+    server: 03.giant.hk.matchacocoa.com
+    port: 443
+    password: "323ab044-c5f7-468d-8b17-ff53dbe808b4"
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 03.giant.hk.matchacocoa.com
+
+  # 韩国节点
+  - name: "🇰🇷 韩国 x 0.9"
+    type: trojan
+    server: 02.giant.kr.matchacocoa.com
+    port: 17888
+    password: "323ab044-c5f7-468d-8b17-ff53dbe808b4"
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 02.giant.kr.matchacocoa.com
+
+  # 澳大利亚节点
+  - name: "🇦🇺 澳大利亚 x 0.8"
+    type: trojan
+    server: 02.giant.au.matchacocoa.com
+    port: 443
+    password: "323ab044-c5f7-468d-8b17-ff53dbe808b4"
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 02.giant.au.matchacocoa.com
+
+  # 印度节点
+  - name: "🇮🇳 印度 x 0.8"
+    type: trojan
+    server: 02.giant.in.matchacocoa.com
+    port: 443
+    password: "323ab044-c5f7-468d-8b17-ff53dbe808b4"
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 02.giant.in.matchacocoa.com
+
+  # 英国节点
+  - name: "🇬🇧 英国 x 0.8"
+    type: trojan
+    server: 02.giant.uk.matchacocoa.com
+    port: 443
+    password: "323ab044-c5f7-468d-8b17-ff53dbe808b4"
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 02.giant.uk.matchacocoa.com
+
+  # 加拿大节点
+  - name: "🇨🇦 加拿大 x 0.8"
+    type: trojan
+    server: 02.giant.ca.matchacocoa.com
+    port: 443
+    password: "323ab044-c5f7-468d-8b17-ff53dbe808b4"
+    udp: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: 02.giant.ca.matchacocoa.com
+
+proxy-groups:
+  # 自动选择组（延迟最低）
+  - name: "🚀 自动选择"
+    type: url-test
+    proxies:
+      - "🇯🇵 日本 x 1.0"
+      - "🇸🇬 新加坡 x 1.0"
+      - "🇺🇸 美国 x 1.0"
+      - "🇭🇰 香港 x 1.0"
+      - "🇰🇷 韩国 x 0.9"
+      - "🇦🇺 澳大利亚 x 0.8"
+      - "🇮🇳 印度 x 0.8"
+      - "🇬🇧 英国 x 0.8"
+      - "🇨🇦 加拿大 x 0.8"
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+
+  # 手动选择组
+  - name: "🌍 手动选择"
+    type: select
+    proxies:
+      - "🚀 自动选择"
+      - "🇯🇵 日本 x 1.0"
+      - "🇸🇬 新加坡 x 1.0"
+      - "🇺🇸 美国 x 1.0"
+      - "🇭🇰 香港 x 1.0"
+      - "🇰🇷 韩国 x 0.9"
+      - "🇦🇺 澳大利亚 x 0.8"
+      - "🇮🇳 印度 x 0.8"
+      - "🇬🇧 英国 x 0.8"
+      - "🇨🇦 加拿大 x 0.8"
+      - DIRECT
+
+  # 国外网站组
+  - name: "🌐 国外网站"
+    type: select
+    proxies:
+      - "🚀 自动选择"
+      - "🌍 手动选择"
+      - DIRECT
+
+rules:
+  # 国内直连
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - DOMAIN-SUFFIX,edu.cn,DIRECT
+  - DOMAIN-SUFFIX,com.cn,DIRECT
+  - DOMAIN-SUFFIX,gov.cn,DIRECT
+  - DOMAIN-SUFFIX,mil.cn,DIRECT
+  - DOMAIN-SUFFIX,net.cn,DIRECT
+  - DOMAIN-SUFFIX,org.cn,DIRECT
+  - DOMAIN-SUFFIX,qq.com,DIRECT
+  - DOMAIN-SUFFIX,baidu.com,DIRECT
+  - DOMAIN-SUFFIX,taobao.com,DIRECT
+  - DOMAIN-SUFFIX,jd.com,DIRECT
+  - DOMAIN-SUFFIX,weibo.com,DIRECT
+  - DOMAIN-SUFFIX,163.com,DIRECT
+  - DOMAIN-SUFFIX,126.com,DIRECT
+  - DOMAIN-SUFFIX,alicdn.com,DIRECT
+  
+  # 本地网络直连
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,224.0.0.0/4,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  
+  # 国外网站走代理
+  - DOMAIN-SUFFIX,google.com,🌐 国外网站
+  - DOMAIN-SUFFIX,gstatic.com,🌐 国外网站
+  - DOMAIN-SUFFIX,github.com,🌐 国外网站
+  - DOMAIN-SUFFIX,githubusercontent.com,🌐 国外网站
+  - DOMAIN-SUFFIX,youtube.com,🌐 国外网站
+  - DOMAIN-SUFFIX,twitter.com,🌐 国外网站
+  - DOMAIN-SUFFIX,facebook.com,🌐 国外网站
+  - DOMAIN-SUFFIX,instagram.com,🌐 国外网站
+  - DOMAIN-SUFFIX,reddit.com,🌐 国外网站
+  - DOMAIN-SUFFIX,wikipedia.org,🌐 国外网站
+  - DOMAIN-SUFFIX,archlinux.org,🌐 国外网站
+  - DOMAIN-SUFFIX,aur.archlinux.org,🌐 国外网站
+  
+  # 最终规则 - 默认走自动选择
+  - MATCH,🚀 自动选择
