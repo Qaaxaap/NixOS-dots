@@ -8,12 +8,11 @@ in
   nixpkgs.overlays = [ inputs.niri.overlays.niri ];
   programs.niri.package = pkgs.niri;
   imports = [ inputs.niri.nixosModules.niri ];
-  niri-flake.cache.enable = true;
+  niri-flake.cache.enable = false;
   programs.niri.enable = true;
   home-manager.users.Qaaxaap = 
     { config, lib, ... }:
     {
-     #  home.sessionVariables = { QT_QPA_PLATFORMTHEME = "kde"; }; 
       programs = {
         niri = {
           settings = {

@@ -8,7 +8,7 @@
     programs.noctalia-shell = {
       enable = true;
       settings = {
-        settingsVersion = 55;  # 更新版本号
+        settingsVersion = 57;
 
         bar = {
           barType = "floating";
@@ -36,10 +36,10 @@
           outerCorners = true;
           hideOnOverview = true;
           displayMode = "always_visible";
+          enableExclusionZoneInset = true;
           autoHideDelay = 500;
           autoShowDelay = 150;
 
-          # 新增字段
           middleClickAction = "none";
           middleClickCommand = "";
           middleClickFollowMouse = false;
@@ -126,6 +126,7 @@
                 enableScrollWheel = true;
                 focusedColor = "primary";
                 followFocusedScreen = false;
+                fontWeight = "bold";
                 groupedBorderOpacity = 1;
                 hideUnoccupied = false;
                 iconScale = 0.8;
@@ -209,6 +210,7 @@
         general = {
           avatarImage = "";
           dimmerOpacity = 0.2;
+          enableBlurBehind = true;
           showScreenCorners = false;
           forceBlackScreenCorners = false;
           scaleRatio = 1;
@@ -260,6 +262,8 @@
           fontDefaultScale = 1;
           fontFixedScale = 1;
           tooltipsEnabled = true;
+          scrollbarAlwaysVisible = true;
+          translucentWidgets = false;
           panelBackgroundOpacity = 0.93;
           panelsAttachedToBar = true;
           settingsPanelMode = "attached";
@@ -523,8 +527,8 @@
         audio = {
           volumeStep = 5;
           volumeOverdrive = false;
-          cavaFrameRate = 30;
           visualizerType = "linear";
+          spectrumFrameRate = 30;
           mprisBlacklist = [ ];
           preferredPlayer = "";
           volumeFeedback = false;
@@ -549,8 +553,22 @@
           monitorForColors = "";
         };
 
+        noctaliaPerformance = {
+          disableDesktopWidgets = true;
+          disableWallpaper = true;
+        };
+
         templates = {
-          activeTemplates = [ ];
+          activeTemplates = [ 
+            {
+              enabled = true;
+              id = "kcolorscheme";
+            }
+            {
+              enabled = true;
+              id = "qt";
+            }
+          ];
           enableUserTheming = false;
         };
 
@@ -582,6 +600,7 @@
 
         desktopWidgets = {
           enabled = true;
+          gridSnapScale = false;
           gridSnap = false;
           overviewEnabled = true;
           monitorWidgets = [

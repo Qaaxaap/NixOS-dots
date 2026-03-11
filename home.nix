@@ -2,6 +2,10 @@
 
 {
   home-manager.users.Qaaxaap = { config, pkgs, ... }: {
+    home.sessionVariables = {
+      NIXPKGS_QT6_QML_IMPORT_PATH = "${pkgs.kdePackages.kirigami.unwrapped}/lib/qt-6/qml"; 
+      QT_QPA_PLATFORMTHEME = "kde"; 
+    };
     nixpkgs.config.allowUnfree = true;
     xdg.dataFile."applications/qq.desktop".text = ''
       [Desktop Entry]
@@ -16,6 +20,10 @@
     '';
     home.file.".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "/home/Qaaxaap/nixos/nvim-dots";
+      recursive = true;
+    };
+    home.file.".config/xdg-desktop-portal" = {
+      source = config.lib.file.mkOutOfStoreSymlink "/home/Qaaxaap/nixos/xdg-desktop-portal";
       recursive = true;
     };
     programs.git = {

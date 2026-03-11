@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self , ... }:
 
 {
   imports =
@@ -17,8 +17,6 @@
     enable = true;
     efiSupport = true;
     device = "nodev";
-    # useOSProber = true;
-   #splashImage = "/home/Qaaxaap/background.png";
   };
   boot.loader.efi.efiSysMountPoint = "/efi";
   # boot.loader.efi.bootloaderId = "NixOS";
@@ -37,7 +35,7 @@
 
   nix.settings = {
     substituters = [
-#"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
       "https://mirrors.ustc.edu.cn/nix-channels/store?priority=5"
       "https://cache.nixos.org"
     ];
@@ -56,6 +54,10 @@
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
+
+  fonts.packages = with pkgs; [
+    self.packages.${pkgs.system}.space-grotesk
+  ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -155,12 +157,18 @@
     libguestfs-with-appliance
     spice spice-gtk
     spice-protocol
-    dnsmasq               # Quickemu 可能会用到（用于网络）
-    docker                # WinApps 后端
+    dnsmasq
+    docker
     qbittorrent
-    quickemu              # 新增：Quickemu 核心工具
-    qemu                   # Quickemu 依赖 QEMU
+    quickemu
+    qemu
+    xdg-desktop-portal
   ];
+
+  environment.sessionVariables = {
+    GTK_USE_PORTAL = "1";
+    NIXOS_OZONE_WL = "1";
+  };
 
   nixpkgs.config.allowUnfree = true;
   services.dbus.enable = true;

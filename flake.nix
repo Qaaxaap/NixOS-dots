@@ -22,9 +22,12 @@
 
  
   outputs = inputs@{ self, winapps, nixpkgs, home-manager, ... }: {
+    packages.x86_64-linux.space-grotesk = import ./font/space-grotesk.nix {
+      inherit (nixpkgs.legacyPackages.x86_64-linux) lib stdenv fetchzip;
+    };
     nixosConfigurations.Qaaxaap = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit inputs winapps; };
+      specialArgs = { inherit self inputs winapps; };
       modules = [
        ./configuration.nix
        ./noctalia.nix
@@ -34,6 +37,7 @@
        ./home.nix
        ./network.nix
        ./winapps.nix
+       ./nh.nix
        home-manager.nixosModules.home-manager
       ];
     }; 
