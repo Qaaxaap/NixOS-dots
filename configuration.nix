@@ -160,17 +160,15 @@
     kdePackages.kpipewire
     libsForQt5.kirigami2
     libsForQt5.kirigami-addons
-    virt-viewer
     libguestfs-with-appliance
     spice spice-gtk
     spice-protocol
     dnsmasq
-    docker
     qbittorrent
     quickemu
     qemu
     xdg-desktop-portal
-    linux-firmware
+# linux-firmware
   ];
 
   environment.sessionVariables = {
