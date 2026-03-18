@@ -10,25 +10,9 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    device = "nodev";
-    gfxmodeEfi = "3072x1920";
-    theme = pkgs.catppuccin-grub;
-  };
-  boot.loader.efi.efiSysMountPoint = "/efi";
-  # boot.loader.efi.bootloaderId = "NixOS";
+  # Use the systemd-boot EFI boot loader. in ./grub.nix
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  networking.hostName = "Qaaxaap"; # Define your hostname.
-
-  # Configure network connections interactively with nmcli or nmtui.
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
@@ -43,20 +27,6 @@
     ];
     experimental-features = [ "nix-command" "flakes" ];
   };
-  networking.proxy.default = "http://127.0.0.1:7890";
-  networking.search = [ "qaaxaap.github" ];
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
 
   fonts.packages = with pkgs; [
     self.packages.${pkgs.system}.space-grotesk
@@ -103,81 +73,16 @@
   services.tailscale.enable = true;
 
   # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
-    clang-tools
-    clang
-    llvmPackages_latest.libcxx
-    llvmPackages_latest.libllvm
-    llvmPackages_latest.clang
-    vim
-    ntfs3g
-    wget
-    art
-    bkcrack
-    fastfetch
-    pywalfox-native
-    os-prober
-    kitty
-    cpeditor
-    git
-    perl
-    gparted
-    cargo
-    qq 
-    killall
-    gcc
-    clang
-    brightnessctl
-    gdb
-    cmake
-    ninja
-    meson
-    baidupcs-go
-    zip
-    inetutils
-    vscode
-    vlc
-    valgrind
-    cppcheck
-    clang-tools
-    # clash-verge-rev
-    mihomo
-    neovim
-    # gui-for-clash
-    tailscale
-    gnumake
-    ripgrep
-    fd 
-    hmcl
-    unzip
-    nodejs_25
-    kdePackages.krdc
-    lazygit
-    fzf
-    ghostscript
-    tectonic
-    mermaid-cli
-    tree-sitter
-    pipewire
-    xwayland-satellite
-    kdePackages.kirigami
-    kdePackages.kirigami-addons
-    kdePackages.qt6ct
-    kdePackages.kpipewire
-    libsForQt5.kirigami2
-    libsForQt5.kirigami-addons
-    libguestfs-with-appliance
-    spice spice-gtk
-    spice-protocol
-    dnsmasq
-    qbittorrent
-    quickemu
-    qemu
-    virt-viewer
-    xdg-desktop-portal
-# linux-firmware
-  ];
-
+  environment.systemPackages = 
+    (with pkgs; [
+      clang-tools clang cargo gcc gdb cmake ninja meson cppcheck gnumake fd nodejs_25 fzf ghostscript tectonic tree-sitter
+      neovim vim git wget ntfs3g kitty killall perl zip bkcrack fastfetch brightnessctl inetutils tailscale ripgrep unzip lazygit mermaid-cli dnsmasq
+      art qq pywalfox-native gparted vlc vscode valgrind mihomo hmcl xwayland-satellite pipewire qbittorrent
+      libguestfs-with-appliance xdg-desktop-portal
+      spice spice-gtk spice-protocol quickemu qemu virt-viewer
+    ]) ++
+    (with pkgs.kdePackages; [ qt6ct kpipewire ]) ++
+    (with pkgs.llvmPackages_latest; [ libcxx libllvm clang ]);
   environment.sessionVariables = {
     GTK_USE_PORTAL = "1";
     NIXOS_OZONE_WL = "1";
@@ -188,11 +93,9 @@
   xdg.portal.enable = true;
   xdg.portal.extraPortals = with pkgs; [
     xdg-desktop-portal-gtk  
-    # xdg-desktop-portal-kde
     xdg-desktop-portal
   ];
 
-  services.openssh.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -201,11 +104,6 @@
   #   enableSSHSupport = true;
   # };
 
-  # Open ports in the firewall.
-  networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 7890 7891 7892 ];
-  networking.firewall.allowedUDPPorts = [ 7890 7891 7892 ];
-  networking.firewall.trustedInterfaces = [ "Meta" ];
 
   services.spice-vdagentd.enable = true;
 

@@ -8,7 +8,7 @@
     programs.noctalia-shell = {
       enable = true;
       settings = {
-        settingsVersion = 57;
+        settingsVersion = 59;
 
         bar = {
           barType = "floating";
@@ -321,7 +321,7 @@
           wallpaperChangeMode = "random";
           randomIntervalSec = 300;
           transitionDuration = 1500;
-          transitionType = "random";
+          transitionType = [ "fade" "disc" "stripes" "wipe" "pixelate" "honeycomb" ];
           transitionEdgeSmoothness = 0.05;
           panelPosition = "follow_bar";
           hideWallpaperFilenames = false;
@@ -345,6 +345,8 @@
 
         appLauncher = {
           enableClipboardHistory = true;
+          enableClipboardChips = true;
+          enableClipboardSmartIcons = true;
           autoPasteClipboard = false;
           density = "default";
           enableClipPreview = true;
@@ -354,7 +356,6 @@
           clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
           position = "center";
           pinnedApps = [ ];
-          useApp2Unit = false;
           sortByMostUsed = true;
           terminalCommand = "alacritty -e";
           customLaunchPrefixEnabled = false;
@@ -373,12 +374,12 @@
         controlCenter = {
           position = "close_to_bar_button";
           diskPath = "/";
-          # 删除了 openAtMouseOnBarRightClick
           shortcuts = {
             left = [
               { id = "Network"; }
               { id = "Bluetooth"; }
               { id = "NoctaliaPerformance"; }
+              { id = "WallpaperSelector"; }
             ];
             right = [
               { id = "Notifications"; }
@@ -428,10 +429,12 @@
           dockType = "floating";
           launcherPosition = "end";
           showDockIndicator = false;
+          launcherUseDistroLogo = false;
           showLauncherIcon = false;
           sitOnFrame = false;
           backgroundOpacity = 1;
           floatingRatio = 1;
+          launcherIcon = "";
           indicatorColor = "primary";
           indicatorOpacity = 0.6;
           indicatorThickness = 3;
@@ -585,6 +588,7 @@
 
         hooks = {
           enabled = false;
+          colorGeneration = "";
           wallpaperChange = "";
           darkModeChange = "";
           screenLock = "";
@@ -597,6 +601,7 @@
 
         plugins = {
           autoUpdate = false;
+          notifyUpdates = true;
         };
 
         desktopWidgets = {
@@ -612,13 +617,13 @@
                   clockColor = "primary";
                   clockStyle = "minimal";
                   clockstyle = "minimal";
-                  customFont = "Space Grotesk";          # 更新字体
+                  customFont = "Space Grotesk";
                   format = "HH:mm\\nyyyy M dd";
                   id = "Clock";
                   roundedCorners = true;
                   scale = 3.7598340841232765;
                   showBackground = false;
-                  useCustomFont = true;                  # 启用自定义字体
+                  useCustomFont = true;
                   x = 337;
                   y = 537;
                 }

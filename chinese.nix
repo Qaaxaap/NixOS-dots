@@ -1,6 +1,14 @@
 { config, pkgs, lib, ... }:
 
 {
+  # Select internationalisation properties.
+  # i18n.defaultLocale = "en_US.UTF-8";
+  # console = {
+  #   font = "Lat2-Terminus16";
+  #   keyMap = "us";
+  #   useXkbConfig = true; # use xkb.options in tty.
+  # };
+
   i18n = {
     defaultLocale = "zh_CN.UTF-8";
     extraLocaleSettings = {

@@ -14,6 +14,10 @@
     niri.url = "github:sodiboo/niri-flake";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    grub2-themes = {
+      url = "github:vinceliuice/grub2-themes";
+    };
+    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
     winapps = {
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,12 +25,14 @@
   }; 
 
  
-  outputs = inputs@{ self, winapps, nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ self, winapps, nixpkgs, home-manager, grub2-themes, ... }: let
+    system = "x86_64-linux";
+  in
+  {
     packages.x86_64-linux.space-grotesk = import ./font/space-grotesk.nix {
       inherit (nixpkgs.legacyPackages.x86_64-linux) lib stdenv fetchzip;
     };
     nixosConfigurations.Qaaxaap = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       specialArgs = { inherit self inputs winapps; };
       modules = [
        ./configuration.nix
@@ -39,7 +45,9 @@
        ./winapps.nix
        ./nh.nix
        ./sddm.nix
+       ./grub.nix
        home-manager.nixosModules.home-manager
+       inputs.distro-grub-themes.nixosModules.${system}.default
       ];
     }; 
   };
