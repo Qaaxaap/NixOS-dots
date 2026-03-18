@@ -1,3 +1,3 @@
 [submodule "nvim-dots"]
-	path = nvim-dots
+	path = home-manager/users/Qaaxaap/features/nvim-dots
 	url = git@github.com:Qaaxaap/nvim-dots.git
