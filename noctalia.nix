@@ -458,7 +458,7 @@
           wifiEnabled = true;
           airplaneModeEnabled = false;
           disableDiscoverability = false;
-          bluetoothRssiPollingEnabled = false;
+          bluetoothRssiPollingEnabled = true;
           bluetoothRssiPollIntervalMs = 10000;
           wifiDetailsViewMode = "grid";
           bluetoothDetailsViewMode = "grid";

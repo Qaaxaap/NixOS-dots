@@ -32,6 +32,12 @@
     self.packages.${pkgs.system}.space-grotesk
   ];
 
+  hardware.bluetooth = {
+    enable = true;
+    # 可选：开机自动启动蓝牙并尝试开启控制器
+    powerOnBoot = true;
+  };
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
