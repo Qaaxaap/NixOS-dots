@@ -8,7 +8,7 @@
   environment.shells = with pkgs; [ bash zsh ];
   users.defaultUserShell = pkgs.zsh;
   home-manager.users.Qaaxaap = { pkgs, ... }: {
-    home.file.".p10k.zsh".source = ./p10k.zsh;
+    home.file.".p10k.zsh".source = ../../home-manager/users/Qaaxaap/dotfiles/p10k.zsh;
     home.packages = with pkgs; [
       zsh-powerlevel10k
     ];

@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, inputs, pkgs, lib, ... }:
 {
-  home-manager.users.Qaaxaap = { config, pkgs, ... }: {
+  imports = [
+    inputs.niri.homeManagerModules.niri
+    ./programs/zsh.nix
+    ./features/niri.nix
+    ./features/noctalia.nix
+  ];
     home.sessionVariables = {
       NIXPKGS_QT6_QML_IMPORT_PATH = "${pkgs.kdePackages.kirigami.unwrapped}/lib/qt-6/qml"; 
       QT_QPA_PLATFORMTHEME = "kde"; 
@@ -29,11 +34,11 @@
       Comment=QQ
     '';
     home.file.".config/nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/home/Qaaxaap/nixos/nvim-dots";
+      source = config.lib.file.mkOutOfStoreSymlink (toString ./features/nvim-dots);
       recursive = true;
     };
     home.file.".config/xdg-desktop-portal" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/home/Qaaxaap/nixos/xdg-desktop-portal";
+      source = config.lib.file.mkOutOfStoreSymlink (toString ./dotfiles/xdg-desktop-portal);
       recursive = true;
     };
     programs.git = {
@@ -48,5 +53,4 @@
         };
       };
     };
-  };
 }

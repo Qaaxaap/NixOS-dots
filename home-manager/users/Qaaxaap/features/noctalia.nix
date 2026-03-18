@@ -1,6 +1,5 @@
 { pkgs, inputs, ... }:
 {
-  home-manager.users.Qaaxaap = {
     imports = [
       inputs.noctalia.homeModules.default
     ];
@@ -648,5 +647,4 @@
         };
       };
     };
-  };
 }
