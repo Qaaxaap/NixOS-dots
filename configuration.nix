@@ -34,7 +34,6 @@
 
   hardware.bluetooth = {
     enable = true;
-    # 可选：开机自动启动蓝牙并尝试开启控制器
     powerOnBoot = true;
   };
 
@@ -87,7 +86,7 @@
       libguestfs-with-appliance xdg-desktop-portal
       spice spice-gtk spice-protocol quickemu qemu virt-viewer
     ]) ++
-    (with pkgs.kdePackages; [ qt6ct kpipewire ]) ++
+    (with pkgs.kdePackages; [ qt6ct kpipewire filelight]) ++
     (with pkgs.llvmPackages_latest; [ libcxx libllvm clang ]);
   environment.sessionVariables = {
     GTK_USE_PORTAL = "1";
