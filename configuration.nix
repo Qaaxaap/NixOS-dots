@@ -85,6 +85,7 @@
       art qq pywalfox-native gparted vlc vscode valgrind mihomo hmcl xwayland-satellite pipewire qbittorrent
       libguestfs-with-appliance xdg-desktop-portal
       spice spice-gtk spice-protocol quickemu qemu virt-viewer
+      kicad-unstable
     ]) ++
     (with pkgs.kdePackages; [ qt6ct kpipewire filelight]) ++
     (with pkgs.llvmPackages_latest; [ libcxx libllvm clang ]);
