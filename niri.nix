@@ -51,8 +51,13 @@ in
             spawn-at-startup = [
               {
                 command = [
-                "noctalia-shell"
-              ];
+                  "noctalia-shell"
+                ];
+              }
+              {
+                command = [
+                  "clash-verge"
+                ];
               }
             ];
             binds = with config.lib.niri.actions; {

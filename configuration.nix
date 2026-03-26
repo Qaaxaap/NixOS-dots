@@ -91,9 +91,13 @@
       spice spice-gtk spice-protocol quickemu qemu virt-viewer
       wineWow64Packages.yabridge winetricks
       libreoffice-qt-fresh
+      kicad
+      dialog
+      google-chrome
     ]) ++
     (with pkgs.kdePackages; [ qt6ct kpipewire filelight]) ++
-    (with pkgs.llvmPackages_latest; [ libcxx libllvm clang ]);
+    (with pkgs.llvmPackages_latest; [ libcxx libllvm clang ]) ++
+    (with pkgs.nerd-fonts; [jetbrains-mono]);
   environment.sessionVariables = {
     GTK_USE_PORTAL = "1";
     NIXOS_OZONE_WL = "1";

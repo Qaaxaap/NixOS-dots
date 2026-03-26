@@ -5,13 +5,11 @@ let
 in
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "i915.force_probe=!${deviceId}"
       "xe.force_probe=${deviceId}"
       "i915.enable_guc=3"
     ];
-    hardware.enableRedistributableFirmware = true;
   };
 
   services.xserver.videoDrivers = [ "modesetting" ];
