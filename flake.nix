@@ -46,6 +46,8 @@
        ./nh.nix
        ./sddm.nix
        ./grub.nix
+       ./steam.nix
+       ./arc.nix
        home-manager.nixosModules.home-manager
        inputs.distro-grub-themes.nixosModules.${system}.default
       ];

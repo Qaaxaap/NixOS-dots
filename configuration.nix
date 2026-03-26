@@ -67,10 +67,14 @@
   users.users.Qaaxaap = {
     isNormalUser = true;
     description = "Qaaxaap";
-    extraGroups = [ "networkmanager" "wheel" "kvm" ];
+    extraGroups = [ "networkmanager" "wheel" "kvm" "video" "plugdev"];
     packages = with pkgs; [];
   };
 
+  hardware.opengl = {
+    enable = true;
+# driSupport = true;
+  };
   hardware.enableRedistributableFirmware = true;
 
   programs.firefox.enable = true;
@@ -85,7 +89,8 @@
       art qq pywalfox-native gparted vlc vscode valgrind mihomo hmcl xwayland-satellite pipewire qbittorrent
       libguestfs-with-appliance xdg-desktop-portal
       spice spice-gtk spice-protocol quickemu qemu virt-viewer
-      kicad-unstable
+      wineWow64Packages.yabridge winetricks
+      libreoffice-qt-fresh
     ]) ++
     (with pkgs.kdePackages; [ qt6ct kpipewire filelight]) ++
     (with pkgs.llvmPackages_latest; [ libcxx libllvm clang ]);
@@ -110,9 +115,19 @@
   #   enableSSHSupport = true;
   # };
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = true;
+      PermitRootLogin = "no";
+    };
+  };
 
   services.spice-vdagentd.enable = true;
-
+  virtualisation.spiceUSBRedirection.enable = true;
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", MODE="0666"
+  '';
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
