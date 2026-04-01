@@ -67,7 +67,7 @@
   users.users.Qaaxaap = {
     isNormalUser = true;
     description = "Qaaxaap";
-    extraGroups = [ "networkmanager" "wheel" "kvm" "video" "plugdev"];
+    extraGroups = [ "docker" "networkmanager" "wheel" "libvirt" "kvm" "video" "plugdev" "dialout"];
     packages = with pkgs; [];
   };
 
@@ -80,6 +80,7 @@
   programs.firefox.enable = true;
   services.flatpak.enable = true;
   services.tailscale.enable = true;
+  virtualisation.docker.enable = true;
 
   # List packages installed in system profile.
   environment.systemPackages = 
@@ -93,7 +94,18 @@
       libreoffice-qt-fresh
       kicad
       dialog
-      google-chrome
+      libnotify
+      freerdp
+      docker
+      virt-manager
+      libvirt
+      python315
+      platformio-core
+      gcc-arm-embedded
+      stlink
+      openocd
+      stm32cubemx
+      javaPackages.compiler.openjdk25
     ]) ++
     (with pkgs.kdePackages; [ qt6ct kpipewire filelight]) ++
     (with pkgs.llvmPackages_latest; [ libcxx libllvm clang ]) ++
@@ -127,10 +139,19 @@
     };
   };
 
+  services.udev.packages = [
+    pkgs.platformio-core
+    pkgs.openocd
+  ];
+
   services.spice-vdagentd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", MODE="0666"
+    # STMicroelectronics ST-LINK/V2
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="3748", MODE="0666", GROUP="plugdev"
+    # STMicroelectronics ST-LINK/V2.1
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="374b", MODE="0666", GROUP="plugdev"
   '';
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

@@ -30,6 +30,23 @@ in
                   top-right = 12.0;
                 };
               }
+              {
+                matches = [
+                  { 
+                    app-id = "^xfreerdp$";
+                    title = "^$";
+                  }
+                  {
+                    app-id = "^xfreerdp$";
+                    title = "no active window";
+                  }
+                ];
+                open-floating = true;
+                default-column-width = { fixed = 1; };
+                default-window-height = { fixed = 1; };
+                opacity = 0.0;
+#block-out-from = "overview";
+              }
             ];
             layout = {
               default-column-width = {};
