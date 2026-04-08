@@ -35,5 +35,4 @@ in
   security.pam.services.sddm.fprintAuth = true;
 
   environment.systemPackages = [ myTheme ];
-  services.desktopManager.plasma6.enable = true;
 }

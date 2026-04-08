@@ -43,6 +43,12 @@
   environment.etc."xdg/menus/applications.menu".source = 
     "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
+  services.desktopManager.plasma6.enable = true;
+  systemd.services.drkonqi = lib.mkForce {
+    enable = false;
+  };
+  
+  systemd.services."drkonqi-coredump-processor@".wantedBy = lib.mkForce [ ];
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
