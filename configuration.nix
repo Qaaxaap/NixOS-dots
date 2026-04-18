@@ -54,7 +54,11 @@
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+  };
 
   # Enable sound.
   # services.pulseaudio.enable = true;
@@ -97,6 +101,7 @@
       libguestfs-with-appliance xdg-desktop-portal
       spice spice-gtk spice-protocol quickemu qemu virt-viewer
       wineWow64Packages.yabridge winetricks
+      zsh
       libreoffice-qt-fresh
       kicad
       dialog
