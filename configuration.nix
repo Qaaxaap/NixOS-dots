@@ -117,6 +117,8 @@
       openocd
       stm32cubemx
       javaPackages.compiler.openjdk25
+      bison
+      orca-slicer
     ]) ++
     (with pkgs.kdePackages; [ qt6ct kpipewire filelight]) ++
     (with pkgs.llvmPackages_latest; [ libcxx libllvm clang ]) ++
