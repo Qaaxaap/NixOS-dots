@@ -119,6 +119,8 @@
       javaPackages.compiler.openjdk25
       bison
       orca-slicer
+      bambu-studio
+      claude-code
     ]) ++
     (with pkgs.kdePackages; [ qt6ct kpipewire filelight]) ++
     (with pkgs.llvmPackages_latest; [ libcxx libllvm clang ]) ++
