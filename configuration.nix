@@ -95,7 +95,7 @@
   # List packages installed in system profile.
   environment.systemPackages = 
     (with pkgs; [
-      clang-tools clang cargo gcc gdb cmake ninja meson cppcheck gnumake fd nodejs_25 fzf ghostscript tectonic tree-sitter
+      clang-tools clang cargo gcc gdb cmake ninja meson cppcheck gnumake fd nodejs_26 fzf ghostscript tectonic tree-sitter
       neovim vim git wget ntfs3g kitty killall perl zip bkcrack fastfetch brightnessctl inetutils tailscale ripgrep unzip lazygit mermaid-cli dnsmasq
       art qq pywalfox-native gparted vlc vscode valgrind mihomo hmcl xwayland-satellite pipewire qbittorrent
       libguestfs-with-appliance xdg-desktop-portal
@@ -115,7 +115,6 @@
       gcc-arm-embedded
       stlink
       openocd
-      stm32cubemx
       javaPackages.compiler.openjdk25
       bison
       orca-slicer
